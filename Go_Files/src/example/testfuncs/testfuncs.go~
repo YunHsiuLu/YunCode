@@ -1,0 +1,11 @@
+package main
+
+import (
+	"fmt"
+	funcs "example/testfuncs/examplefuncs"
+)
+
+func main() {
+	fmt.Println("Test function from other files")
+	result := funcs.Sum(6.4, 17.3)
+}
