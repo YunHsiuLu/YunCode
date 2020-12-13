@@ -3,9 +3,11 @@ do
     sleep 6
     cd data_test
         arr=(*.pcap)
+        echo "Files done: $i"
     cd ../
-    echo "Files done: $i"
-    echo "${arr[$i]}"
+    #echo "${arr[$i]}"
+    source pcap2csv.sh ${arr[$i]}
+
 done
 
 
