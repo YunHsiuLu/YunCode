@@ -1,5 +1,5 @@
 sleep_sec=$(($1 + 2))
-for i in {1..$2};
+for i in $(seq 1 $2);
 do
     sleep $1
     cd data_test
@@ -8,5 +8,3 @@ do
     cd ../
     source pcap2csv.sh ${arr[$i]}
 done
-
-
