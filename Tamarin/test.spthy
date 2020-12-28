@@ -1,0 +1,20 @@
+/*
+ *  Author: 
+ *  Model Name: test.spthy
+ *  Status: DEVELOPMENTAL
+ *
+ *  Comments:
+ */
+
+theory test
+begin
+
+builtins: 
+
+rule A:
+    [ First(..) ]--[ M(..) ]->[ F('1', 'x'), F('2', 'y') ]
+rule B:
+    [ F(u, v) ]--[ N(..) ]->[ Last1(..), Last2(..) ]
+
+
+end
