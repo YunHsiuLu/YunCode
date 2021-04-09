@@ -13,19 +13,20 @@ cipher = ["00112233445566778899aabbccddeeff",
 
 guess = ""
 n = len(cipher)
-guess_block = []
 inter = []
 answer = [[] for _ in range(n)]
 for i in range(n):
-	inter.append(["0"*32])
+	inter.append("0"*32)
 
 inter[0] = IV
 
 
 #index = 8 #down to 1
-for index in range(8, 0, -1):
+for index in range(8, 7, -1):
 	print(f"index: {index}")
-	guess_block = [["0"*32] for _ in range(index+1)]
+	guess_block = []
+	for _ in range(index+1):
+		guess_block.append("0"*32)
 	guess_block[index] = cipher[index]
 
 	#pos = 30
