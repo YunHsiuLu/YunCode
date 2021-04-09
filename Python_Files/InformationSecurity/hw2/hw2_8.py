@@ -19,38 +19,40 @@ for i in range(n):
 
 inter[0] = IV
 
-index = 8 #down to 1
-guess_block = [["0"*32] for _ in range(index+1)]
-guess_block[index] = cipher[index]
+#index = 8 #down to 1
+for index in range(8, 0, -1):
+	print(f"index: {index}")
+	guess_block = [["0"*32] for _ in range(index+1)]
+	guess_block[index] = cipher[index]
 
-#pos = 30
-padding = 0 #up to 16
-testing = "0"*32
-for pos in range(30, -2, -2):
-	padding += 1
-	print("padding: ", padding)
-	temp_h = ""
-	for i in range(pos, 30, 2):
-		#print("\t***in temp_h loop")
-		temp = int(testing[i+2:i+4], base=16) ^ padding
-		temp_h += "0" + hex(temp)[-1] if temp < 16 else hex(temp)[-2:]
-	for i in range(256):
-		h = "0" + hex(i)[-1] if i < 16 else hex(i)[-2:]
-		testing = testing[0:pos] + h + temp_h
-		guess_block[index-1] = testing
-		for j in range(index+1):
-			guess += guess_block[j]
+	#pos = 30
+	padding = 0 #up to 16
+	testing = "0"*32
+	for pos in range(30, -2, -2):
+		padding += 1
+		print("\tpadding: ", padding)
+		temp_h = ""
+		for i in range(pos, 30, 2):
+			#print("\t***in temp_h loop")
+			temp = int(testing[i+2:i+4], base=16) ^ padding
+			temp_h += "0" + hex(temp)[-1] if temp < 16 else hex(temp)[-2:]
+		for i in range(256):
+			h = "0" + hex(i)[-1] if i < 16 else hex(i)[-2:]
+			testing = testing[0:pos] + h + temp_h
+			guess_block[index-1] = testing
+			for j in range(index+1):
+				guess += guess_block[j]
 
-		URL = "http://140.122.185.210:8080/oracle/" + guess
-		r = requests.get(URL)
-		if r.text == "valid":
-			break
-	print()
-	temp_inter = int(h, base=16) ^ padding
-	temp_inter = "0" + hex(temp_inter)[-1] if temp_inter < 16 else hex(temp_inter)[-2:]
-	inter[index] = inter[index][0:pos] + temp_inter + inter[index][pos+2:]
-	print(f"testing{padding}: ", testing)
-	print("inter:    ", inter[index])
+			URL = "http://140.122.185.210:8080/oracle/" + guess
+			r = requests.get(URL)
+			if r.text == "valid":
+				break
+		print()
+		temp_inter = int(h, base=16) ^ padding
+		temp_inter = "0" + hex(temp_inter)[-1] if temp_inter < 16 else hex(temp_inter)[-2:]
+		inter[index] = inter[index][0:pos] + temp_inter + inter[index][pos+2:]
+		print(f"\ttesting{padding}: ", testing)
+		print("\tinter:    ", inter[index])
 
 
 
