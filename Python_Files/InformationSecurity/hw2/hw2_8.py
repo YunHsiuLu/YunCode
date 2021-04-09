@@ -22,7 +22,7 @@ inter[0] = IV
 
 
 #index = 8 #down to 1
-for index in range(8, 7, -1):
+for index in range(8, 0, -1):
 	print(f"index: {index}")
 	guess_block = []
 	for _ in range(index+1):
@@ -59,7 +59,8 @@ for index in range(8, 7, -1):
 		print("\tinter:    ", inter[index])
 
 for i in range(len(inter)):
-	inter[i] = [inter[i][j:j+2] for j in range(0, len(inter[i], 2))]
+	cipher[i] = [cipher[i][j:j+2] for j in range(0, len(cipher[i]), 2)]
+	inter[i] = [inter[i][j:j+2] for j in range(0, len(inter[i]), 2)]
 
 answer[0] = inter[0]
 for i in range(len(inter) - 1):
