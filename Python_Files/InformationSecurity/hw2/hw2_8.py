@@ -32,10 +32,10 @@ for index in range(8, 0, -1):
 		print("\tpadding: ", padding)
 		temp_h = ""
 		for i in range(pos, 30, 2):
-			#print("\t***in temp_h loop")
 			temp = int(testing[i+2:i+4], base=16) ^ padding
 			temp_h += "0" + hex(temp)[-1] if temp < 16 else hex(temp)[-2:]
 		for i in range(256):
+			print("\r\ttesting: %d" % i, end="", flush=True)
 			h = "0" + hex(i)[-1] if i < 16 else hex(i)[-2:]
 			testing = testing[0:pos] + h + temp_h
 			guess_block[index-1] = testing
