@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<!-- saved from url=(0064)https://codertw.com/%E7%A8%8B%E5%BC%8F%E8%AA%9E%E8%A8%80/369901/ -->
+<html lang="zh-TW" prefix="og: http://ogp.me/ns#"><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><!-- <link type="text/css" media="all" href="https://codertw.com/wp-content/cache/autoptimize/css/autoptimize_177830b6aa5b2faf85c14799a6aef35f.css" rel="stylesheet" /> -->
+<link rel="stylesheet" type="text/css" href="./詳解Python Socket網路程式設計 _ 程式前沿_files/ha3qr.css" media="all"><title>詳解Python Socket網路程式設計 | 程式前沿</title><meta name="description" content="Socket 是程序間通訊的一種方式，它與其他程序間通訊的一個主要不同是：它能實現不同主機間的程序間通訊，我們網路上各種各樣的服務大多都是基於 Socket 來完成通訊的，例如我們每天瀏覽網頁、QQ 聊天、收發 email 等等。要解決網路上兩臺主機之間的程序通訊問題，首先要唯一標識該程序，在 TCP/IP"> <script async="" src="./詳解Python Socket網路程式設計 _ 程式前沿_files/analytics.js"></script><script type="application/ld+json" class="aioseop-schema">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://codertw.com/#organization","url":"https://codertw.com/","name":"codertw","sameAs":[]},{"@type":"WebSite","@id":"https://codertw.com/#website","url":"https://codertw.com/","name":"\u7a0b\u5f0f\u524d\u6cbf","publisher":{"@id":"https://codertw.com/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://codertw.com/?s={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"WebPage","@id":"https://codertw.com/%e7%a8%8b%e5%bc%8f%e8%aa%9e%e8%a8%80/369901/#webpage","url":"https://codertw.com/%e7%a8%8b%e5%bc%8f%e8%aa%9e%e8%a8%80/369901/","inLanguage":"zh-TW","name":"\u8a73\u89e3Python Socket\u7db2\u8def\u7a0b\u5f0f\u8a2d\u8a08","isPartOf":{"@id":"https://codertw.com/#website"},"datePublished":"2018-07-04T23:14:29+00:00","dateModified":"2018-07-04T23:14:29+00:00"},{"@type":"Article","@id":"https://codertw.com/%e7%a8%8b%e5%bc%8f%e8%aa%9e%e8%a8%80/369901/#article","isPartOf":{"@id":"https://codertw.com/%e7%a8%8b%e5%bc%8f%e8%aa%9e%e8%a8%80/369901/#webpage"},"author":{"@id":"https://codertw.com/author/csdn/#author"},"headline":"\u8a73\u89e3Python Socket\u7db2\u8def\u7a0b\u5f0f\u8a2d\u8a08","datePublished":"2018-07-04T23:14:29+00:00","dateModified":"2018-07-04T23:14:29+00:00","commentCount":0,"mainEntityOfPage":{"@id":"https://codertw.com/%e7%a8%8b%e5%bc%8f%e8%aa%9e%e8%a8%80/369901/#webpage"},"publisher":{"@id":"https://codertw.com/#organization"},"articleSection":"\u7a0b\u5f0f\u8a9e\u8a00, python, socket, \u7db2\u8def\u7a0b\u5f0f\u8a2d\u8a08"},{"@type":"Person","@id":"https://codertw.com/author/csdn/#author","name":"CSDN","sameAs":[]}]}</script> <link rel="canonical" href="https://codertw.com/%E7%A8%8B%E5%BC%8F%E8%AA%9E%E8%A8%80/369901/"><link class="css-async" rel="stylesheet" href="./詳解Python Socket網路程式設計 _ 程式前沿_files/content.css"><link class="css-async" rel="stylesheet" href="./詳解Python Socket網路程式設計 _ 程式前沿_files/icon.css"><link class="css-async" rel="stylesheet" href="./詳解Python Socket網路程式設計 _ 程式前沿_files/css"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><link rel="dns-prefetch" href="https://www.google.com/"><link rel="dns-prefetch" href="https://www.google-analytics.com/"><link rel="dns-prefetch" href="https://fonts.googleapis.com/"><link rel="dns-prefetch" href="https://fonts.gstatic.com/"><link rel="dns-prefetch" href="https://pagead2.googlesyndication.com/"><link rel="dns-prefetch" href="https://googleads.g.doubleclick.net/"><link rel="dns-prefetch" href="https://www.gstatic.com/"><link rel="icon" href="https://codertw.com/wp-content/uploads/2018/05/cropped-logo-32x32.jpg" sizes="32x32"><link rel="icon" href="https://codertw.com/wp-content/uploads/2018/05/cropped-logo-192x192.jpg" sizes="192x192"><link rel="apple-touch-icon-precomposed" href="https://codertw.com/wp-content/uploads/2018/05/cropped-logo-180x180.jpg"><meta name="msapplication-TileImage" content="https://codertw.com/wp-content/uploads/2018/05/cropped-logo-270x270.jpg"><meta property="og:site_name" content="程式前沿"><meta property="og:type" content="article"><meta property="og:title" content="詳解Python Socket網路程式設計"><meta property="og:description" content="Socket 是程序間通訊的一種方式，它與其他程序間通訊的一個主要不同是：它能實現不同主機間的程序間通訊，我們網路上各種各樣的服務大多都是基於 Socket 來完成通訊的，例如我們每天瀏覽網頁、QQ 聊天、收發 email 等等。要解決網路"><meta property="og:url" content="https://codertw.com/%e7%a8%8b%e5%bc%8f%e8%aa%9e%e8%a8%80/369901/"><meta property="og:image" content="https://codertw.com/wp-content/themes/lionmedia/img/img_no.gif"><meta name="twitter:card" content="summary"> <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-115794378-7', 'auto');
+ga('send', 'pageview');</script><script data-dapp-detection="">
+(function() {
+  let alreadyInsertedMetaTag = false
+
+  function __insertDappDetected() {
+    if (!alreadyInsertedMetaTag) {
+      const meta = document.createElement('meta')
+      meta.name = 'dapp-detected'
+      document.head.appendChild(meta)
+      alreadyInsertedMetaTag = true
+    }
+  }
+
+  if (window.hasOwnProperty('web3')) {
+    // Note a closure can't be used for this var because some sites like
+    // www.wnyc.org do a second script execution via eval for some reason.
+    window.__disableDappDetectionInsertion = true
+    // Likely oldWeb3 is undefined and it has a property only because
+    // we defined it. Some sites like wnyc.org are evaling all scripts
+    // that exist again, so this is protection against multiple calls.
+    if (window.web3 === undefined) {
+      return
+    }
+    __insertDappDetected()
+  } else {
+    var oldWeb3 = window.web3
+    Object.defineProperty(window, 'web3', {
+      configurable: true,
+      set: function (val) {
+        if (!window.__disableDappDetectionInsertion)
+          __insertDappDetected()
+        oldWeb3 = val
+      },
+      get: function () {
+        if (!window.__disableDappDetectionInsertion)
+          __insertDappDetected()
+        return oldWeb3
+      }
+    })
+  }
+})()</script> <link rel="stylesheet" href="./詳解Python Socket網路程式設計 _ 程式前沿_files/default.min.css"> <script data-ad-client="ca-pub-8571763053236339" async="" src="./詳解Python Socket網路程式設計 _ 程式前沿_files/f.txt"></script> </head><body class="t-light t-rich"><header class="l-header"><div class="container"><div class="siteTitle"><p class="siteTitle__name  u-txtShdw"> <a class="siteTitle__link" href="https://codertw.com/"> <span class="siteTitle__main">程式前沿</span> </a> <span class="siteTitle__sub">幫助程式設計師解決問題，增加專業技能，提升個人能力與未來世界競爭力。</span></p></div><nav class="menuNavi"><ul class="menuNavi__list"><li class="menuNavi__item u-txtShdw"><span class="menuNavi__link menuNavi__link-current icon-menu" id="menuNavi__menu" onclick="toggle__menu();"></span></li></ul></nav></div></header><div class="l-extraNone" id="extra__search"><div class="container"><div class="searchNavi"></div></div></div><div class="l-extra" id="extra__menu"><div class="container container-max"><nav class="globalNavi"><ul class="globalNavi__list"><li id="menu-item-65" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-65"><a href="https://codertw.com/category/%e7%a8%8b%e5%bc%8f%e8%aa%9e%e8%a8%80/">程式語言</a></li><li id="menu-item-32" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-32"><a href="https://codertw.com/category/%e5%89%8d%e7%ab%af%e9%96%8b%e7%99%bc/">前端開發</a></li><li id="menu-item-33" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-33"><a href="https://codertw.com/category/ios/">IOS開發</a></li><li id="menu-item-415" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-415"><a href="https://codertw.com/category/android-%e9%96%8b%e7%99%bc/">Android 開發</a></li><li id="menu-item-68" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-68"><a href="https://codertw.com/category/%e9%9b%b2%e7%ab%af%e9%81%8b%e7%ae%97/">雲端運算</a></li><li id="menu-item-62" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-62"><a href="https://codertw.com/category/%e4%ba%ba%e5%b7%a5%e6%99%ba%e6%85%a7/">人工智慧</a></li><li id="menu-item-63" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-63"><a href="https://codertw.com/category/%e4%bc%ba%e6%9c%8d%e5%99%a8/">伺服器</a></li><li id="menu-item-64" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-64"><a href="https://codertw.com/category/%e6%90%9c%e5%b0%8b/">搜尋</a></li><li id="menu-item-66" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-66"><a href="https://codertw.com/category/%e8%b3%87%e6%96%99%e5%ba%ab/">資料庫</a></li><li id="menu-item-67" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-67"><a href="https://codertw.com/category/%e8%bb%9f%e9%ab%94%e9%96%8b%e7%99%bc%e5%b7%a5%e5%85%b7/">軟體開發工具</a></li></ul></nav></div></div><div class="singleTitle"><div class="container"><div class="singleTitle__heading"><h1 class="heading heading-singleTitle u-txtShdw">詳解Python Socket網路程式設計</h1><ul class="dateList dateList-singleTitle"><li class="dateList__item icon-calendar">2018.07.05</li><li class="dateList__item icon-folder"><a class="hc-sunflour" href="https://codertw.com/category/%e7%a8%8b%e5%bc%8f%e8%aa%9e%e8%a8%80/" rel="category">程式語言</a></li><li class="dateList__item icon-tag"><a href="https://codertw.com/tag/python/" rel="tag">python</a>, <a href="https://codertw.com/tag/socket/" rel="tag">socket</a>, <a href="https://codertw.com/tag/%e7%b6%b2%e8%b7%af%e7%a8%8b%e5%bc%8f%e8%a8%ad%e8%a8%88/" rel="tag">網路程式設計</a></li></ul></div><div class="eyecatch eyecatch-singleTitle"> <noscript><img src="https://codertw.com/wp-content/themes/lionmedia/img/img_no.gif" alt="NO IMAGE" width="890" height="500" ></noscript><img class=" ls-is-cached lazyloaded" src="./詳解Python Socket網路程式設計 _ 程式前沿_files/img_no.gif" data-src="https://codertw.com/wp-content/themes/lionmedia/img/img_no.gif" alt="NO IMAGE" width="890" height="500"></div></div></div><div class="breadcrumb"><div class="container"><ul class="breadcrumb__list"><li class="breadcrumb__item" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="https://codertw.com/" itemprop="url"><span class="icon-home" itemprop="title">HOME</span></a></li><li class="breadcrumb__item" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="https://codertw.com/category/%e7%a8%8b%e5%bc%8f%e8%aa%9e%e8%a8%80/" itemprop="url"><span itemprop="title">程式語言</span></a></li><li class="breadcrumb__item">詳解Python Socket網路程式設計</li></ul></div></div><div class="l-wrapper"><main class="l-main"><aside><ul class="socialList"><li class="socialList__item"><a class="socialList__link icon-facebook" href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fcodertw.com%2F%25e7%25a8%258b%25e5%25bc%258f%25e8%25aa%259e%25e8%25a8%2580%2F369901%2F&amp;t=%E8%A9%B3%E8%A7%A3Python+Socket%E7%B6%B2%E8%B7%AF%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88" target="_blank" title="Facebookで共有"></a></li><li class="socialList__item"><a class="socialList__link icon-twitter" href="https://twitter.com/intent/tweet?text=%E8%A9%B3%E8%A7%A3Python+Socket%E7%B6%B2%E8%B7%AF%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88&amp;https%3A%2F%2Fcodertw.com%2F%25e7%25a8%258b%25e5%25bc%258f%25e8%25aa%259e%25e8%25a8%2580%2F369901%2F&amp;url=https%3A%2F%2Fcodertw.com%2F%25e7%25a8%258b%25e5%25bc%258f%25e8%25aa%259e%25e8%25a8%2580%2F369901%2F" target="_blank" title="Twitterで共有"></a></li><li class="socialList__item"><a class="socialList__link icon-google" href="https://plus.google.com/share?url=https%3A%2F%2Fcodertw.com%2F%25e7%25a8%258b%25e5%25bc%258f%25e8%25aa%259e%25e8%25a8%2580%2F369901%2F" target="_blank" title="Google+で共有"></a></li><li class="socialList__item"><a class="socialList__link icon-line" href="http://line.naver.jp/R/msg/text/?%E8%A9%B3%E8%A7%A3Python+Socket%E7%B6%B2%E8%B7%AF%E7%A8%8B%E5%BC%8F%E8%A8%AD%E8%A8%88%0D%0Ahttps%3A%2F%2Fcodertw.com%2F%25e7%25a8%258b%25e5%25bc%258f%25e8%25aa%259e%25e8%25a8%2580%2F369901%2F" target="_blank" title="LINEで送る"></a></li></ul></aside><aside class="widgetPost widgetPost-top"><aside class="widget widget-post"><div class="adWidget"><script async="" src="./詳解Python Socket網路程式設計 _ 程式前沿_files/f.txt"></script>  <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8571763053236339" data-ad-slot="1371210627" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script><h2 class="adWidget__title">Advertisement</h2></div></aside></aside><section class="content"><p>Socket 是程序間通訊的一種方式，它與其他程序間通訊的一個主要不同是：它能實現不同主機間的程序間通訊，我們網路上各種各樣的服務大多都是基於 Socket 來完成通訊的，例如我們每天瀏覽網頁、QQ 聊天、收發 email 等等。要解決網路上兩臺主機之間的程序通訊問題，首先要唯一標識該程序，在 TCP/IP 網路協議中，就是通過 (IP地址，協議，埠號) 三元組來標識程序的，解決了程序標識問題，就有了通訊的基礎了。</p><p>本文主要介紹使用Python 進行TCP Socket 網路程式設計，假設你已經具有初步的網路知識及Python 基本語法知識。</p><p>TCP 是一種面向連線的傳輸層協議，TCP Socket 是基於一種 Client-Server 的程式設計模型，服務端監聽客戶端的連線請求，一旦建立連線即可以進行傳輸資料。那麼對 TCP Socket 程式設計的介紹也分為客戶端和服務端：</p><p><strong>一、客戶端程式設計</strong><br> <strong>建立socket</strong></p><p>首先要建立 socket，用 Python 中 socket 模組的函式 socket 就可以完成：</p><pre><code class="hljs coffeescript">
+<span class="hljs-comment">#Socket client example in python</span>
+<span class="hljs-keyword">import</span> socket  <span class="hljs-comment">#for sockets</span>
+<span class="hljs-comment">#create an AF_INET, STREAM socket (TCP)</span>
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+<span class="hljs-built_in">print</span> <span class="hljs-string">'Socket Created'</span>
+</code></pre><p>函式socket.socket 建立一個 socket，返回該 socket 的描述符，將在後面相關函式中使用。該函式帶有兩個引數：</p><p>Address Family：可以選擇 AF_INET（用於 Internet 程序間通訊） 或者 AF_UNIX（用於同一臺機器程序間通訊）<br> Type：套接字型別，可以是 SOCKET_STREAM（流式套接字，主要用於 TCP 協議）或者SOCKET_DGRAM（資料包套接字，主要用於 UDP 協議）<br> 注：由於本文主要概述一下 Python Socket 程式設計的過程，因此不會對相關函式引數、返回值進行詳細介紹，需要了解的可以檢視相關手冊</p><p><strong>錯誤處理</strong></p><p>如果建立 socket 函式失敗，會丟擲一個 socket.error 的異常，需要捕獲：</p><pre><code class="hljs python">
+<span class="hljs-comment">#handling errors in python socket programs</span>
+<span class="hljs-keyword">import</span> socket  <span class="hljs-comment">#for sockets</span>
+<span class="hljs-keyword">import</span> sys <span class="hljs-comment">#for exit</span>
+<span class="hljs-keyword">try</span>:
+<span class="hljs-comment">#create an AF_INET, STREAM socket (TCP)</span>
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+<span class="hljs-keyword">except</span> socket.error, msg:
+<span class="hljs-keyword">print</span> <span class="hljs-string">'Failed to create socket. Error code: '</span>   str(msg[<span class="hljs-number">0</span>])   <span class="hljs-string">' , Error message : '</span>   msg[<span class="hljs-number">1</span>]
+sys.exit();
+<span class="hljs-keyword">print</span> <span class="hljs-string">'Socket Created'</span>
+</code></pre><p>那麼到目前為止已成功建立了 socket，接下來我們將用這個 socket 來連線某個伺服器，就連 www.google.com 吧。</p><p><strong>連線伺服器</strong></p><p>本文開始也提到了，socket 使用 (IP地址，協議，埠號) 來標識一個程序，那麼我們要想和伺服器進行通訊，就需要知道它的 IP地址以及埠號。</p><p><strong>獲得遠端主機的 IP 地址</strong></p><p>Python 提供了一個簡單的函式 socket.gethostbyname 來獲得遠端主機的 IP 地址：</p><pre><code class="hljs php">
+host = <span class="hljs-string">'www.google.com'</span>
+port = <span class="hljs-number">80</span>
+<span class="hljs-keyword">try</span>:
+remote_ip = socket.gethostbyname( host )
+except socket.gaierror:
+<span class="hljs-comment">#could not resolve</span>
+<span class="hljs-keyword">print</span> <span class="hljs-string">'Hostname could not be resolved. Exiting'</span>
+sys.<span class="hljs-keyword">exit</span>()
+<span class="hljs-keyword">print</span> <span class="hljs-string">'Ip address of '</span>   host   <span class="hljs-string">' is '</span>   remote_ip
+</code></pre><p>現在我們知道了伺服器的 IP 地址，就可以使用連線函式 connect 連線到該 IP 的某個特定的埠上了，下面例子連線到 80 埠上（是 HTTP 服務的預設埠）：</p><pre><code class="hljs bash">
+<span class="hljs-comment">#Connect to remote server</span>
+s.connect((remote_ip , port))
+<span class="hljs-built_in">print</span> <span class="hljs-string">'Socket Connected to '</span>   host   <span class="hljs-string">' on ip '</span>   remote_ip
+</code></pre><p>執行該程式：</p><pre><code class="hljs coffeescript">
+$ python client.py
+Socket created
+Ip <span class="hljs-keyword">of</span> remote host www.google.com <span class="hljs-keyword">is</span> <span class="hljs-number">173.194</span><span class="hljs-number">.38</span><span class="hljs-number">.145</span>
+Socket Connected to www.google.com <span class="hljs-literal">on</span> ip <span class="hljs-number">173.194</span><span class="hljs-number">.38</span><span class="hljs-number">.145</span>
+</code></pre><p><strong>傳送資料</strong></p><p>上面說明連線到 www.google.com 已經成功了，接下面我們可以向伺服器傳送一些資料，例如傳送字串GET / HTTP/1.1\r\n\r\n，這是一個 HTTP 請求網頁內容的命令。</p><pre><code class="hljs php">
+<span class="hljs-comment">#Send some data to remote server</span>
+message = <span class="hljs-string">"GET / HTTP/1.1\r\n\r\n"</span>
+<span class="hljs-keyword">try</span> :
+<span class="hljs-comment">#Set the whole string</span>
+s.sendall(message)
+except socket.error:
+<span class="hljs-comment">#Send failed</span>
+<span class="hljs-keyword">print</span> <span class="hljs-string">'Send failed'</span>
+sys.<span class="hljs-keyword">exit</span>()
+<span class="hljs-keyword">print</span> <span class="hljs-string">'Message send successfully'</span>
+</code></pre><p>傳送完資料之後，客戶端還需要接受伺服器的響應。</p><p><strong>接收資料</strong></p><p>函式 recv 可以用來接收 socket 的資料：</p><pre><code class="hljs makefile">
+<span class="hljs-comment">#Now receive data</span>
+reply = s.recv(4096)
+print reply
+</code></pre><p>一起執行的結果如下：</p><p></p><pre><code class="hljs javascript">
+Socket created
+Ip <span class="hljs-keyword">of</span> remote host www.google.com is <span class="hljs-number">173.194</span><span class="hljs-number">.38</span><span class="hljs-number">.145</span>
+Socket Connected to www.google.com on ip <span class="hljs-number">173.194</span><span class="hljs-number">.38</span><span class="hljs-number">.145</span>
+Message send successfully
+HTTP/<span class="hljs-number">1.1</span> <span class="hljs-number">302</span> Found
+Cache-Control: private
+Content-Type: text/html; charset=UTF<span class="hljs-number">-8</span>
+Location: http:<span class="hljs-comment">//www.google.com.sg/?gfe_rd=cr&amp;ei=PlqJVLCREovW8gfF0oG4CQ</span>
+Content-Length: <span class="hljs-number">262</span>
+<span class="hljs-built_in">Date</span>: Thu, <span class="hljs-number">11</span> Dec <span class="hljs-number">2014</span> <span class="hljs-number">08</span>:<span class="hljs-number">47</span>:<span class="hljs-number">58</span> GMT
+Server: GFE/<span class="hljs-number">2.0</span>
+Alternate-Protocol: <span class="hljs-number">80</span>:quic,p=<span class="hljs-number">0.02</span>
+&lt;HTML&gt;<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">HEAD</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">"content-type"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"text/html;charset=utf-8"</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">TITLE</span>&gt;</span>302 Moved<span class="hljs-tag">&lt;/<span class="hljs-name">TITLE</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">HEAD</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">BODY</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">H1</span>&gt;</span>302 Moved<span class="hljs-tag">&lt;/<span class="hljs-name">H1</span>&gt;</span>
+The document has moved
+<span class="hljs-tag">&lt;<span class="hljs-name">A</span> <span class="hljs-attr">HREF</span>=<span class="hljs-string">"http://www.google.com.sg/?gfe_rd=cr&amp;ei=PlqJVLCREovW8gfF0oG4CQ"</span>&gt;</span>here<span class="hljs-tag">&lt;/<span class="hljs-name">A</span>&gt;</span>.
+<span class="hljs-tag">&lt;/<span class="hljs-name">BODY</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">HTML</span>&gt;</span></span>
+</code></pre><p><strong>關閉 socket</strong></p><p>當我們不想再次請求伺服器資料時，可以將該 socket 關閉，結束這次通訊：</p><p><strong>s.close()</strong><br> 小結</p><p>上面我們學到了如何：</p><p> <strong>建立 socket</strong><br> <strong>連線到遠端伺服器</strong><br> <strong>傳送資料</strong><br> <strong>接收資料</strong><br> <strong>關閉 socket<br> </strong></p><p>當我們開啟<a href="https://www.google.com/">www.google.com</a> 時，瀏覽器所做的就是這些，知道這些是非常有意義的。在 socket 中具有這種行為特徵的被稱為CLIENT，客戶端主要是連線遠端系統獲取資料。</p><p>socket 中另一種行為稱為SERVER，伺服器使用 socket 來接收連線以及提供資料，和客戶端正好相反。所以 www.google.com 是伺服器，你的瀏覽器是客戶端，或者更準確地說，www.google.com 是 HTTP 伺服器，你的瀏覽器是 HTTP 客戶端。</p><p>那麼上面介紹了客戶端的程式設計，現在輪到伺服器端如果使用 socket 了。</p><p><strong>二、伺服器端程式設計</strong><br> 伺服器端主要做以下工作：</p><p> <strong>開啟 socket</strong><br> <strong>繫結到特定的地址以及埠上</strong><br> <strong>監聽連線</strong><br> <strong>建立連線</strong><br> <strong>接收/傳送資料</strong></p><p>上面已經介紹瞭如何建立 socket 了，下面一步是繫結。</p><p><strong>繫結socket</strong></p><p>函式 bind 可以用來將 socket 繫結到特定的地址和埠上，它需要一個 sockaddr_in 結構作為引數：</p><pre><code class="hljs python">
+<span class="hljs-keyword">import</span> socket
+<span class="hljs-keyword">import</span> sys
+HOST = <span class="hljs-string">''</span>  <span class="hljs-comment"># Symbolic name meaning all available interfaces</span>
+PORT = <span class="hljs-number">8888</span> <span class="hljs-comment"># Arbitrary non-privileged port</span>
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+<span class="hljs-keyword">print</span> <span class="hljs-string">'Socket created'</span>
+<span class="hljs-keyword">try</span>:
+s.bind((HOST, PORT))
+<span class="hljs-keyword">except</span> socket.error , msg:
+<span class="hljs-keyword">print</span> <span class="hljs-string">'Bind failed. Error Code : '</span>   str(msg[<span class="hljs-number">0</span>])   <span class="hljs-string">' Message '</span>   msg[<span class="hljs-number">1</span>]
+sys.exit()
+<span class="hljs-keyword">print</span> <span class="hljs-string">'Socket bind complete'</span>
+</code></pre><p>繫結完成之後，接下來就是監聽連線了。</p><p><strong>監聽連線</strong></p><p>函式 listen 可以將 socket 置於監聽模式：</p><pre><code class="hljs bash">
+s.listen(10)
+<span class="hljs-built_in">print</span> <span class="hljs-string">'Socket now listening'</span>
+</code></pre><p>該函式帶有一個引數稱為 backlog，用來控制連線的個數。如果設為 10，那麼有 10 個連線正在等待處理，此時第 11 個請求過來時將會被拒絕。</p><p><strong>接收連線</strong></p><p>當有客戶端向伺服器傳送連線請求時，伺服器會接收連線：</p><pre><code class="hljs bash">
+<span class="hljs-comment">#wait to accept a connection - blocking call</span>
+conn, addr = s.accept()
+<span class="hljs-comment">#display client information</span>
+<span class="hljs-built_in">print</span> <span class="hljs-string">'Connected with '</span>   addr[0]   <span class="hljs-string">':'</span>   str(addr[1])
+</code></pre><p>執行該程式的，輸出結果如下：</p><pre><code class="hljs shell"><span class="hljs-meta">
+$</span><span class="bash"> python server.py</span>
+Socket created
+Socket bind complete
+Socket now listening
+</code></pre><p>此時，該程式在 8888 埠上等待請求的到來。不要關掉這個程式，讓它一直執行，現在客戶端可以通過該埠連線到 socket。我們用 telnet 客戶端來測試，開啟一個終端，輸入 telnet localhost 8888：</p><pre><code class="hljs coffeescript">
+$ telnet localhost <span class="hljs-number">8888</span>
+Trying <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>...
+Connected to localhost.
+Escape character <span class="hljs-keyword">is</span> <span class="hljs-string">'^]'</span>.
+Connection closed <span class="hljs-keyword">by</span> foreign host.
+</code></pre><p>這時服務端輸出會顯示：</p><pre><code class="hljs shell"><span class="hljs-meta">
+$</span><span class="bash"> python server.py</span>
+Socket created
+Socket bind complete
+Socket now listening
+Connected with 127.0.0.1:59954
+</code></pre><p>我們觀察到客戶端已經連線上伺服器了。在建立連線之後，我們可以用來與客戶端進行通訊。下面例子演示的是，伺服器建立連線之後，接收客戶端傳送來的資料，並立即將資料傳送回去，下面是完整的服務端程式：</p><pre><code class="hljs python">
+<span class="hljs-keyword">import</span> socket
+<span class="hljs-keyword">import</span> sys
+HOST = <span class="hljs-string">''</span>  <span class="hljs-comment"># Symbolic name meaning all available interfaces</span>
+PORT = <span class="hljs-number">8888</span> <span class="hljs-comment"># Arbitrary non-privileged port</span>
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+<span class="hljs-keyword">print</span> <span class="hljs-string">'Socket created'</span>
+<span class="hljs-keyword">try</span>:
+s.bind((HOST, PORT))
+<span class="hljs-keyword">except</span> socket.error , msg:
+<span class="hljs-keyword">print</span> <span class="hljs-string">'Bind failed. Error Code : '</span>   str(msg[<span class="hljs-number">0</span>])   <span class="hljs-string">' Message '</span>   msg[<span class="hljs-number">1</span>]
+sys.exit()
+<span class="hljs-keyword">print</span> <span class="hljs-string">'Socket bind complete'</span>
+s.listen(<span class="hljs-number">10</span>)
+<span class="hljs-keyword">print</span> <span class="hljs-string">'Socket now listening'</span>
+<span class="hljs-comment">#wait to accept a connection - blocking call</span>
+conn, addr = s.accept()
+<span class="hljs-keyword">print</span> <span class="hljs-string">'Connected with '</span>   addr[<span class="hljs-number">0</span>]   <span class="hljs-string">':'</span>   str(addr[<span class="hljs-number">1</span>])
+<span class="hljs-comment">#now keep talking with the client</span>
+data = conn.recv(<span class="hljs-number">1024</span>)
+conn.sendall(data)
+conn.close()
+s.close()
+</code></pre><p>在一個終端中執行這個程式，開啟另一個終端，使用 telnet 連線伺服器，隨便輸入字串，你會看到：</p><pre><code class="hljs coffeescript">
+$ telnet localhost <span class="hljs-number">8888</span>
+Trying <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>...
+Connected to localhost.
+Escape character <span class="hljs-keyword">is</span> <span class="hljs-string">'^]'</span>.
+happy
+happy
+Connection closed <span class="hljs-keyword">by</span> foreign host.
+</code></pre><p>客戶端（telnet）接收了伺服器的響應。</p><p>我們在完成一次響應之後伺服器立即斷開了連線，而像www.google.com 這樣的伺服器總是一直等待接收連線的。我們需要將上面的伺服器程式改造成一直執行，最簡單的辦法是將accept 放到一個迴圈中，那麼就可以一直接收連線了。</p><p><strong>保持服務</strong></p><p>我們可以將程式碼改成這樣讓伺服器一直工作：</p><pre><code class="hljs python">
+<span class="hljs-keyword">import</span> socket
+<span class="hljs-keyword">import</span> sys
+HOST = <span class="hljs-string">''</span>  <span class="hljs-comment"># Symbolic name meaning all available interfaces</span>
+PORT = <span class="hljs-number">5000</span> <span class="hljs-comment"># Arbitrary non-privileged port</span>
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+<span class="hljs-keyword">print</span> <span class="hljs-string">'Socket created'</span>
+<span class="hljs-keyword">try</span>:
+s.bind((HOST, PORT))
+<span class="hljs-keyword">except</span> socket.error , msg:
+<span class="hljs-keyword">print</span> <span class="hljs-string">'Bind failed. Error Code : '</span>   str(msg[<span class="hljs-number">0</span>])   <span class="hljs-string">' Message '</span>   msg[<span class="hljs-number">1</span>]
+sys.exit()
+<span class="hljs-keyword">print</span> <span class="hljs-string">'Socket bind complete'</span>
+s.listen(<span class="hljs-number">10</span>)
+<span class="hljs-keyword">print</span> <span class="hljs-string">'Socket now listening'</span>
+<span class="hljs-comment">#now keep talking with the client</span>
+<span class="hljs-keyword">while</span> <span class="hljs-number">1</span>:
+<span class="hljs-comment">#wait to accept a connection - blocking call</span>
+conn, addr = s.accept()
+<span class="hljs-keyword">print</span> <span class="hljs-string">'Connected with '</span>   addr[<span class="hljs-number">0</span>]   <span class="hljs-string">':'</span>   str(addr[<span class="hljs-number">1</span>])
+data = conn.recv(<span class="hljs-number">1024</span>)
+reply = <span class="hljs-string">'OK...'</span>   data
+<span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> data: 
+<span class="hljs-keyword">break</span>
+conn.sendall(reply)
+conn.close()
+s.close()
+</code></pre><p>現在在一個終端下執行上面的伺服器程式，再開啟三個終端，分別用 telnet 去連線，如果一個終端連線之後不輸入資料其他終端是沒辦法進行連線的，而且每個終端只能服務一次就斷開連線。這從程式碼上也是可以看出來的。</p><p>這顯然也不是我們想要的，我們希望多個客戶端可以隨時建立連線，而且每個客戶端可以跟伺服器進行多次通訊，這該怎麼修改呢？</p><p><strong>處理連線</strong></p><p>為了處理每個連線，我們需要將處理的程式與主程式的接收連線分開。一種方法可以使用執行緒來實現，主服務程式接收連線，建立一個執行緒來處理該連線的通訊，然後伺服器回到接收其他連線的邏輯上來。</p><pre><code class="hljs python">
+<span class="hljs-keyword">import</span> socket
+<span class="hljs-keyword">import</span> sys
+<span class="hljs-keyword">from</span> thread <span class="hljs-keyword">import</span> *
+HOST = <span class="hljs-string">''</span>  <span class="hljs-comment"># Symbolic name meaning all available interfaces</span>
+PORT = <span class="hljs-number">8888</span> <span class="hljs-comment"># Arbitrary non-privileged port</span>
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+<span class="hljs-keyword">print</span> <span class="hljs-string">'Socket created'</span>
+<span class="hljs-comment">#Bind socket to local host and port</span>
+<span class="hljs-keyword">try</span>:
+s.bind((HOST, PORT))
+<span class="hljs-keyword">except</span> socket.error , msg:
+<span class="hljs-keyword">print</span> <span class="hljs-string">'Bind failed. Error Code : '</span>   str(msg[<span class="hljs-number">0</span>])   <span class="hljs-string">' Message '</span>   msg[<span class="hljs-number">1</span>]
+sys.exit()
+<span class="hljs-keyword">print</span> <span class="hljs-string">'Socket bind complete'</span>
+<span class="hljs-comment">#Start listening on socket</span>
+s.listen(<span class="hljs-number">10</span>)
+<span class="hljs-keyword">print</span> <span class="hljs-string">'Socket now listening'</span>
+<span class="hljs-comment">#Function for handling connections. This will be used to create threads</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">clientthread</span><span class="hljs-params">(conn)</span>:</span>
+<span class="hljs-comment">#Sending message to connected client</span>
+conn.send(<span class="hljs-string">'Welcome to the server. Type something and hit enter\n'</span>) <span class="hljs-comment">#send only takes string</span>
+<span class="hljs-comment">#infinite loop so that function do not terminate and thread do not end.</span>
+<span class="hljs-keyword">while</span> <span class="hljs-keyword">True</span>:
+<span class="hljs-comment">#Receiving from client</span>
+data = conn.recv(<span class="hljs-number">1024</span>)
+reply = <span class="hljs-string">'OK...'</span>   data
+<span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> data: 
+<span class="hljs-keyword">break</span>
+conn.sendall(reply)
+<span class="hljs-comment">#came out of loop</span>
+conn.close()
+<span class="hljs-comment">#now keep talking with the client</span>
+<span class="hljs-keyword">while</span> <span class="hljs-number">1</span>:
+<span class="hljs-comment">#wait to accept a connection - blocking call</span>
+conn, addr = s.accept()
+<span class="hljs-keyword">print</span> <span class="hljs-string">'Connected with '</span>   addr[<span class="hljs-number">0</span>]   <span class="hljs-string">':'</span>   str(addr[<span class="hljs-number">1</span>])
+<span class="hljs-comment">#start new thread takes 1st argument as a function name to be run, second is the tuple of arguments to the function.</span>
+start_new_thread(clientthread ,(conn,))
+s.close()
+</code></pre><p>再次執行上面的程式，開啟三個終端來與主伺服器建立 telnet 連線，這時候三個客戶端可以隨時接入，而且每個客戶端可以與主伺服器進行多次通訊。</p><p>telnet 終端下可能輸出如下：</p><pre><code class="hljs coffeescript">
+$ telnet localhost <span class="hljs-number">8888</span>
+Trying <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>...
+Connected to localhost.
+Escape character <span class="hljs-keyword">is</span> <span class="hljs-string">'^]'</span>.
+Welcome to the server. Type something <span class="hljs-keyword">and</span> hit enter
+hi
+OK...hi
+asd
+OK...asd
+cv
+OK...cv
+</code></pre><p>要結束 telnet 的連線，按下 Ctrl-] 鍵，再輸入 close 命令。</p><p>伺服器終端的輸出可能是這樣的：</p><pre><code class="hljs javascript">
+$ python server.py
+Socket created
+Socket bind complete
+Socket now listening
+Connected <span class="hljs-keyword">with</span> <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>:<span class="hljs-number">60730</span>
+Connected <span class="hljs-keyword">with</span> <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>:<span class="hljs-number">60731</span>
+</code></pre><p>到目前為止，我們學習了Python 下基本的socket 程式設計，之後還有相關文章向大家介紹，不要走開。</p><div class="outline"> <span class="outline__title">目錄</span> <input class="outline__toggle" id="outline__toggle" type="checkbox" checked=""> <label class="outline__switch" for="outline__toggle"></label><ul class="outline__list outline__list-4"><li class="outline__item"><a class="outline__link" href="https://codertw.com/%E7%A8%8B%E5%BC%8F%E8%AA%9E%E8%A8%80/369901/#outline__1"><span class="outline__number">1.</span> 您可能感興趣的文章:</a></li></ul></div><h4 id="outline__1">您可能感興趣的文章:</h4><p><a href="https://codertw.com/article/99944.htm" title="從零開始學Python第八週：詳解網路程式設計基礎（socket)" target="_blank">從零開始學Python第八週：詳解網路程式設計基礎（socket)</a><a href="https://codertw.com/article/91432.htm" title="python 網路程式設計常用程式碼段" target="_blank">python 網路程式設計常用程式碼段</a><a href="https://codertw.com/article/88452.htm" title="Python網路程式設計中urllib2模組的用法總結" target="_blank">Python網路程式設計中urllib2模組的用法總結</a><a href="https://codertw.com/article/87335.htm" title="Python的網路程式設計庫Gevent的安裝及使用技巧" target="_blank">Python的網路程式設計庫Gevent的安裝及使用技巧</a><a href="https://codertw.com/article/66417.htm" title="python網路程式設計之檔案下載例項分析" target="_blank">python網路程式設計之檔案下載例項分析</a><a href="https://codertw.com/article/127227.htm" title="Python網路程式設計詳解" target="_blank">Python網路程式設計詳解</a></p></section><aside class="rectangle"><div class="rectangle__item rectangle__item-left"> <script async="" src="./詳解Python Socket網路程式設計 _ 程式前沿_files/f.txt"></script>  <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8571763053236339" data-ad-slot="9469192492" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div><div class="rectangle__item rectangle__item-right"> <script async="" src="./詳解Python Socket網路程式設計 _ 程式前沿_files/f.txt"></script>  <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8571763053236339" data-ad-slot="8651784906" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script> </div><h2 class="rectangle__title">Advertisement</h2></aside><aside class="comments"><div id="respond" class="comment-respond"><h2 class="heading heading-primary">写评论 <small><a rel="nofollow" id="cancel-comment-reply-link" href="https://codertw.com/%E7%A8%8B%E5%BC%8F%E8%AA%9E%E8%A8%80/369901/#respond" style="display:none;">取消回覆</a></small></h2><p class="must-log-in">很抱歉，必須<a href="https://codertw.com/wp-login.php?redirect_to=https%3A%2F%2Fcodertw.com%2F%25e7%25a8%258b%25e5%25bc%258f%25e8%25aa%259e%25e8%25a8%2580%2F369901%2F">登入</a>網站才能發佈留言。</p></div></aside></main><div class="l-sidebar"><aside class="widget"><h2 class="heading heading-widget">近期文章</h2><ol class="imgListWidget"><li class="imgListWidget__item"> <a class="imgListWidget__borderBox" href="https://codertw.com/%e7%a8%8b%e5%bc%8f%e8%aa%9e%e8%a8%80/711951/" title="Spark入門（一）用SparkShell初嘗Spark滋味"><span> <noscript><img src="https://codertw.com/wp-content/themes/lionmedia/img/img_no_thumbnail.gif" alt="NO IMAGE"></noscript><img class=" lazyloaded" src="./詳解Python Socket網路程式設計 _ 程式前沿_files/img_no_thumbnail.gif" data-src="https://codertw.com/wp-content/themes/lionmedia/img/img_no_thumbnail.gif" alt="NO IMAGE"> </span></a><h3 class="imgListWidget__title"> <a href="https://codertw.com/%e7%a8%8b%e5%bc%8f%e8%aa%9e%e8%a8%80/711951/">Spark入門（一）用SparkShell初嘗Spark滋味</a> <span class="post-date">2019.12.08</span></h3></li><li class="imgListWidget__item"> <a class="imgListWidget__borderBox" href="https://codertw.com/%e7%a8%8b%e5%bc%8f%e8%aa%9e%e8%a8%80/711950/" title="Spark入門（二）如何用Idea運行我們的Spark項目"><span> <noscript><img src="https://codertw.com/wp-content/themes/lionmedia/img/img_no_thumbnail.gif" alt="NO IMAGE"></noscript><img class=" lazyloaded" src="./詳解Python Socket網路程式設計 _ 程式前沿_files/img_no_thumbnail.gif" data-src="https://codertw.com/wp-content/themes/lionmedia/img/img_no_thumbnail.gif" alt="NO IMAGE"> </span></a><h3 class="imgListWidget__title"> <a href="https://codertw.com/%e7%a8%8b%e5%bc%8f%e8%aa%9e%e8%a8%80/711950/">Spark入門（二）如何用Idea運行我們的Spark項目</a> <span class="post-date">2019.12.08</span></h3></li><li class="imgListWidget__item"> <a class="imgListWidget__borderBox" href="https://codertw.com/%e7%a8%8b%e5%bc%8f%e8%aa%9e%e8%a8%80/711949/" title="Spark入門（三）Spark經典的單詞統計"><span> <noscript><img src="https://codertw.com/wp-content/themes/lionmedia/img/img_no_thumbnail.gif" alt="NO IMAGE"></noscript><img class=" ls-is-cached lazyloaded" src="./詳解Python Socket網路程式設計 _ 程式前沿_files/img_no_thumbnail.gif" data-src="https://codertw.com/wp-content/themes/lionmedia/img/img_no_thumbnail.gif" alt="NO IMAGE"> </span></a><h3 class="imgListWidget__title"> <a href="https://codertw.com/%e7%a8%8b%e5%bc%8f%e8%aa%9e%e8%a8%80/711949/">Spark入門（三）Spark經典的單詞統計</a> <span class="post-date">2019.12.08</span></h3></li><li class="imgListWidget__item"> <a class="imgListWidget__borderBox" href="https://codertw.com/%e7%a8%8b%e5%bc%8f%e8%aa%9e%e8%a8%80/711948/" title="Spark入門（四）Spark的map、flatMap、mapToPair"><span> <noscript><img src="https://codertw.com/wp-content/themes/lionmedia/img/img_no_thumbnail.gif" alt="NO IMAGE"></noscript><img class=" ls-is-cached lazyloaded" src="./詳解Python Socket網路程式設計 _ 程式前沿_files/img_no_thumbnail.gif" data-src="https://codertw.com/wp-content/themes/lionmedia/img/img_no_thumbnail.gif" alt="NO IMAGE"> </span></a><h3 class="imgListWidget__title"> <a href="https://codertw.com/%e7%a8%8b%e5%bc%8f%e8%aa%9e%e8%a8%80/711948/">Spark入門（四）Spark的map、flatMap、mapToPair</a> <span class="post-date">2019.12.08</span></h3></li><li class="imgListWidget__item"> <a class="imgListWidget__borderBox" href="https://codertw.com/%e7%a8%8b%e5%bc%8f%e8%aa%9e%e8%a8%80/711947/" title="Spark入門（五）Spark的reduce和reduceByKey"><span> <noscript><img src="https://codertw.com/wp-content/themes/lionmedia/img/img_no_thumbnail.gif" alt="NO IMAGE"></noscript><img class=" ls-is-cached lazyloaded" src="./詳解Python Socket網路程式設計 _ 程式前沿_files/img_no_thumbnail.gif" data-src="https://codertw.com/wp-content/themes/lionmedia/img/img_no_thumbnail.gif" alt="NO IMAGE"> </span></a><h3 class="imgListWidget__title"> <a href="https://codertw.com/%e7%a8%8b%e5%bc%8f%e8%aa%9e%e8%a8%80/711947/">Spark入門（五）Spark的reduce和reduceByKey</a> <span class="post-date">2019.12.08</span></h3></li><li class="imgListWidget__item"> <a class="imgListWidget__borderBox" href="https://codertw.com/%e7%a8%8b%e5%bc%8f%e8%aa%9e%e8%a8%80/711946/" title="Spark入門（六）Spark的combineByKey、sortBykey"><span> <noscript><img src="https://codertw.com/wp-content/themes/lionmedia/img/img_no_thumbnail.gif" alt="NO IMAGE"></noscript><img class=" ls-is-cached lazyloaded" src="./詳解Python Socket網路程式設計 _ 程式前沿_files/img_no_thumbnail.gif" data-src="https://codertw.com/wp-content/themes/lionmedia/img/img_no_thumbnail.gif" alt="NO IMAGE"> </span></a><h3 class="imgListWidget__title"> <a href="https://codertw.com/%e7%a8%8b%e5%bc%8f%e8%aa%9e%e8%a8%80/711946/">Spark入門（六）Spark的combineByKey、sortBykey</a> <span class="post-date">2019.12.08</span></h3></li><li class="imgListWidget__item"> <a class="imgListWidget__borderBox" href="https://codertw.com/%e7%a8%8b%e5%bc%8f%e8%aa%9e%e8%a8%80/711945/" title="Spark入門（七）Spark的intersection、subtract、union和distinct"><span> <noscript><img src="https://codertw.com/wp-content/themes/lionmedia/img/img_no_thumbnail.gif" alt="NO IMAGE"></noscript><img class=" ls-is-cached lazyloaded" src="./詳解Python Socket網路程式設計 _ 程式前沿_files/img_no_thumbnail.gif" data-src="https://codertw.com/wp-content/themes/lionmedia/img/img_no_thumbnail.gif" alt="NO IMAGE"> </span></a><h3 class="imgListWidget__title"> <a href="https://codertw.com/%e7%a8%8b%e5%bc%8f%e8%aa%9e%e8%a8%80/711945/">Spark入門（七）Spark的intersection、subtract、union和distinct</a> <span class="post-date">2019.12.08</span></h3></li><li class="imgListWidget__item"> <a class="imgListWidget__borderBox" href="https://codertw.com/%e7%a8%8b%e5%bc%8f%e8%aa%9e%e8%a8%80/711944/" title="Spark實戰尋找5億次訪問中，訪問次數最多的人"><span> <noscript><img src="https://codertw.com/wp-content/themes/lionmedia/img/img_no_thumbnail.gif" alt="NO IMAGE"></noscript><img class=" ls-is-cached lazyloaded" src="./詳解Python Socket網路程式設計 _ 程式前沿_files/img_no_thumbnail.gif" data-src="https://codertw.com/wp-content/themes/lionmedia/img/img_no_thumbnail.gif" alt="NO IMAGE"> </span></a><h3 class="imgListWidget__title"> <a href="https://codertw.com/%e7%a8%8b%e5%bc%8f%e8%aa%9e%e8%a8%80/711944/">Spark實戰尋找5億次訪問中，訪問次數最多的人</a> <span class="post-date">2019.12.08</span></h3></li><li class="imgListWidget__item"> <a class="imgListWidget__borderBox" href="https://codertw.com/%e7%a8%8b%e5%bc%8f%e8%aa%9e%e8%a8%80/711943/" title="Spark實戰搭建我們的Spark分佈式架構"><span> <noscript><img src="https://codertw.com/wp-content/themes/lionmedia/img/img_no_thumbnail.gif" alt="NO IMAGE"></noscript><img class=" ls-is-cached lazyloaded" src="./詳解Python Socket網路程式設計 _ 程式前沿_files/img_no_thumbnail.gif" data-src="https://codertw.com/wp-content/themes/lionmedia/img/img_no_thumbnail.gif" alt="NO IMAGE"> </span></a><h3 class="imgListWidget__title"> <a href="https://codertw.com/%e7%a8%8b%e5%bc%8f%e8%aa%9e%e8%a8%80/711943/">Spark實戰搭建我們的Spark分佈式架構</a> <span class="post-date">2019.12.08</span></h3></li><li class="imgListWidget__item"> <a class="imgListWidget__borderBox" href="https://codertw.com/%e7%a8%8b%e5%bc%8f%e8%aa%9e%e8%a8%80/711942/" title="【機器學習】深度學習開發環境搭建"><span> <noscript><img src="https://codertw.com/wp-content/themes/lionmedia/img/img_no_thumbnail.gif" alt="NO IMAGE"></noscript><img class=" ls-is-cached lazyloaded" src="./詳解Python Socket網路程式設計 _ 程式前沿_files/img_no_thumbnail.gif" data-src="https://codertw.com/wp-content/themes/lionmedia/img/img_no_thumbnail.gif" alt="NO IMAGE"> </span></a><h3 class="imgListWidget__title"> <a href="https://codertw.com/%e7%a8%8b%e5%bc%8f%e8%aa%9e%e8%a8%80/711942/">【機器學習】深度學習開發環境搭建</a> <span class="post-date">2019.12.08</span></h3></li></ol></aside><div class="widgetSticky"><aside class="widget widget-sticky"><div class="adWidget"><script async="" src="./詳解Python Socket網路程式設計 _ 程式前沿_files/f.txt"></script>  <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8571763053236339" data-ad-slot="3135734346" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script><h2 class="adWidget__title">Advertisement</h2></div></aside><aside class="widget widget-sticky"><div class="adWidget"><script async="" src="./詳解Python Socket網路程式設計 _ 程式前沿_files/f.txt"></script>  <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8571763053236339" data-ad-slot="3262876794" data-ad-format="auto" data-full-width-responsive="true"></ins> <script>(adsbygoogle = window.adsbygoogle || []).push({});</script><h2 class="adWidget__title">Advertisement</h2></div></aside></div></div></div>  <script type="application/ld+json">{
+"@context": "http://schema.org",
+"@type": "Article ",
+"mainEntityOfPage":{
+"@type": "WebPage",
+"@id": "https://codertw.com/%e7%a8%8b%e5%bc%8f%e8%aa%9e%e8%a8%80/369901/"
+},
+"headline": "詳解Python Socket網路程式設計",
+"image": {
+"@type": "ImageObject",
+"url": "https://codertw.com/wp-content/themes/lionmedia/img/img_no.gif",
+"height": "890",
+"width": "500"
+},
+"datePublished": "2018-07-05T07:14:29+0800",
+"dateModified": "2018-07-05T07:14:29+0800",
+"author": {
+"@type": "Person",
+"name": "CSDN"
+},
+"publisher": {
+"@type": "Organization",
+"name": "程式前沿",
+"logo": {
+"@type": "ImageObject",
+"url": "https://codertw.com/wp-content/uploads/2018/05/logo.jpg",
+"width": "62",
+"height":"62"
+}
+},
+"description": "Socket 是程序間通訊的一種方式，它與其他程序間通訊的一個主要不同是：它能實現不同主機間的程序間通訊，我們網路上各種各樣的服務大多都是基於 Socket 來完成通訊的，例如我們每天瀏覽網頁、QQ 聊天、收發 email 等等。要解決網路上兩臺主機之間的程序通訊問題，首先要唯一標識該程序，在 TC [&hellip;]"
+}</script> <footer class="l-footer"><div class="container"><div class="pagetop u-txtShdw"><a class="pagetop__link" href="https://codertw.com/%E7%A8%8B%E5%BC%8F%E8%AA%9E%E8%A8%80/369901/#top">Back to Top</a></div><div class="copySns copySns-noBorder"><div class="copySns__copy"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  © Copyright 2019 <a class="copySns__copyLink" href="https://codertw.com/">程式前沿</a>. recommand <a class="copySns__copyLink" href="https://javoices.com/">OV</a> &nbsp; &nbsp; &nbsp; &nbsp; <span class="copySns__copyInfo u-none"> 程式前沿 by <a class="copySns__copyLink" href="http://fit-jp.com/" target="_blank">FIT-Web Create</a>. Powered by <a class="copySns__copyLink" href="https://wordpress.org/" target="_blank">WordPress</a>. </span></div></div></div></footer> <noscript><style>.lazyload{display:none;}</style></noscript><script data-noptimize="1">window.lazySizesConfig=window.lazySizesConfig||{};window.lazySizesConfig.loadMode=1;</script><script async="" data-noptimize="1" src="./詳解Python Socket網路程式設計 _ 程式前沿_files/lazysizes.min.js"></script> <script>function toggle__search(){
+extra__search.className="l-extra";
+extra__menu.className="l-extraNone";
+menuNavi__search.className = "menuNavi__link menuNavi__link-current icon-search ";
+menuNavi__menu.className = "menuNavi__link icon-menu";
+}
+function toggle__menu(){
+extra__search.className="l-extraNone";
+extra__menu.className="l-extra";
+menuNavi__search.className = "menuNavi__link icon-search";
+menuNavi__menu.className = "menuNavi__link menuNavi__link-current icon-menu";
+}</script><script>Array.prototype.forEach.call(document.getElementsByClassName("css-async"),function(e){e.rel = "stylesheet"});</script> <script src="./詳解Python Socket網路程式設計 _ 程式前沿_files/highlight.min.js"></script> <script>hljs.initHighlightingOnLoad();</script> <script type="text/javascript" defer="" src="./詳解Python Socket網路程式設計 _ 程式前沿_files/autoptimize_f452d67a906f6ee73da68e553e43da58.js"></script></body></html>
