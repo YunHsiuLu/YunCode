@@ -13,17 +13,12 @@ cipher = ["00112233445566778899aabbccddeeff",
 
 guess = ""
 n = len(cipher)
-inter = []
-answer = [[] for _ in range(n)]
-for i in range(n):
-	inter.append("0"*32)
-
-inter[0] = IV
-
 
 #index = 8 #down to 1
 for index in range(8, 0, -1):
 	print(f"index: {index}")
+
+	inter = "0"*32
 	guess_block = []
 	for _ in range(index+1):
 		guess_block.append("0"*32)
@@ -54,10 +49,14 @@ for index in range(8, 0, -1):
 		print()
 		temp_inter = int(h, base=16) ^ padding
 		temp_inter = "0" + hex(temp_inter)[-1] if temp_inter < 16 else hex(temp_inter)[-2:]
-		inter[index] = inter[index][0:pos] + temp_inter + inter[index][pos+2:]
+		inter = inter[0:pos] + temp_inter + inter[pos+2:]
 		print(f"\ttesting{padding}: ", testing)
-		print("\tinter:    ", inter[index])
+		print("\tinter:    ", inter)
+	f = open("inter%d.txt" % (index), "w")
+	f.write(inter)
+	f.close()
 
+"""
 for i in range(len(inter)):
 	cipher[i] = [cipher[i][j:j+2] for j in range(0, len(cipher[i]), 2)]
 	inter[i] = [inter[i][j:j+2] for j in range(0, len(inter[i]), 2)]
@@ -71,7 +70,7 @@ for i in range(1, len(answer)):
 		print(answer[i][j], end="")
 
 print()
-
+"""
 
 
 
