@@ -8,4 +8,14 @@ cipher = ["00112233445566778899aabbccddeeff",
          "ab3de8d9653be21d635a0f8d59712836",
          "06eb64c0fbb922afd9db007f94fb9e24",
          "a899a6c0a65b687b85f45d4840d47df4"]
+c_block = [[] for _ in range(len(cipher))]
+for i in range(len(cipher)):
+	for j in range(0, len(cipher[i]), 2):
+		c_block[i].append(cipher[i][j:j+2])
+	
+print(c_block)
 
+for i in range(1, len(cipher)):
+	f = open("inter%d.txt" % i, "r")
+	print(f.readline())
+	f.close()

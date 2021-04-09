@@ -56,21 +56,3 @@ for index in range(8, 0, -1):
 	f.write(inter)
 	f.close()
 
-"""
-for i in range(len(inter)):
-	cipher[i] = [cipher[i][j:j+2] for j in range(0, len(cipher[i]), 2)]
-	inter[i] = [inter[i][j:j+2] for j in range(0, len(inter[i]), 2)]
-
-for i in range(len(inter) - 1):
-	for j in range(len(inter[i])):
-		answer[i+1].append(chr(int(cipher[i][j], base=16) ^ int(inter[i+1][j], base=16)))
-
-for i in range(1, len(answer)):
-	for j in range(len(answer[i])):
-		print(answer[i][j], end="")
-
-print()
-"""
-
-
-
