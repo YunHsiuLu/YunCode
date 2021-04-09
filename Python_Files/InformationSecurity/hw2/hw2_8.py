@@ -13,11 +13,14 @@ cipher = ["00112233445566778899aabbccddeeff",
 
 guess = ""
 n = len(cipher)
+guess_block = []
 inter = []
+answer = [[] for _ in range(n)]
 for i in range(n):
-	inter.append("0"*32)
+	inter.append(["0"*32])
 
 inter[0] = IV
+
 
 #index = 8 #down to 1
 for index in range(8, 0, -1):
@@ -53,6 +56,14 @@ for index in range(8, 0, -1):
 		inter[index] = inter[index][0:pos] + temp_inter + inter[index][pos+2:]
 		print(f"\ttesting{padding}: ", testing)
 		print("\tinter:    ", inter[index])
+
+for i in range(len(inter)):
+	inter[i] = [inter[i][j:j+2] for j in range(0, len(inter[i], 2))]
+
+answer[0] = inter[0]
+for i in range(len(inter) - 1):
+	for j in range(len(inter[i])):
+		answer[i+1].append(chr(int(inter[i][j], base=16) ^ inter[i+1][j], base=16))
 
 
 
