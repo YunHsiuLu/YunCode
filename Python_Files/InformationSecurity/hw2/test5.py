@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Apr 11 00:20:15 2021
+
+@author: user
+"""
+
 import requests
 
 cipher = ["00112233445566778899aabbccddeeff",

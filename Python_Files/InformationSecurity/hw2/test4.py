@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Apr 11 00:20:27 2021
+
+@author: user
+"""
+
 import requests
 
 cipher = ["00112233445566778899aabbccddeeff",
@@ -13,7 +20,7 @@ cipher = ["00112233445566778899aabbccddeeff",
 guess = ""
 n = len(cipher)
 
-index = 8
+index = 4
 
 print(f"index: {index}")
 

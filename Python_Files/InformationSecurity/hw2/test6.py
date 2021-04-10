@@ -13,7 +13,7 @@ cipher = ["00112233445566778899aabbccddeeff",
 guess = ""
 n = len(cipher)
 
-index = 8
+index = 6
 
 print(f"index: {index}")
 
