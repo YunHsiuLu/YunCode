@@ -20,7 +20,7 @@ cipher = ["00112233445566778899aabbccddeeff",
 guess = ""
 n = len(cipher)
 
-index = 8
+index = 5
 
 print(f"index: {index}")
 
