@@ -30,7 +30,7 @@ for i in range(8):
         A[i].append(a[i][j:j+2])
         C[i].append(c[i][j:j+2])
 
-print(C, A)
+print("message is: ")
 for i in range(8):
     for j in range(16):
         if i == 0:
