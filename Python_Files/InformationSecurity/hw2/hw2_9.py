@@ -1,46 +1,17 @@
-import datetime
-import random
-from base64 import b64encode, b64decode
-from binascii import unhexlify
-
 from Crypto.Cipher import AES
-from Crypto.Util.Padding import pad, unpad
 
-# lab time is 2018,4,17,23,8,49
-# I have not download the environment
-# test from 2 hrs ago
-date_seed = int((datetime.datetime(2018,4,17,21,8,49)).timestamp())
+data = bytearray.fromhex('255044462d312e350a25d0d4c5d80a34')
+ciphertext = bytearray.fromhex('d06bf9d0dab8e8ef880660d2af65aa82')
+iv = bytearray.fromhex('09080706050403020100A2B2C2D2E2F2')
 
-iv = "09080706050403020100a2b2c2d2e2f2"
-msg = b"\x25\x50\x44\x46\x2d\x31\x2e\x35\x0a\x25\xd0\xd4\xc5\xd8\x0a\x34"
-iv = unhexlify(iv)
-password = ""
-for s in range(3601):
-	print(f"round: {s}")
-	random.seed(date_seed)
-	for i in range(16):
-		password += hex(random.randint(0,255))
+with open('keys.txt') as f:
+    keys = f.readlines()
 
-	password = unhexlify(password)
-
-	# Pad to AES Block Size
-	msg = pad(msg, AES.block_size)
-
-	# Encipher Text
-	cipher = AES.new(password, AES.MODE_CBC, iv)
-	cipher_text = cipher.encrypt(msg)
-
-	# Encode Cipher_text as Base 64 and decode to String
-	out = b64encode(cipher_text).decode('utf-8')
-	print(f"OUT: {out}")
-
-	# Decipher cipher text
-	decipher = AES.new(password, AES.MODE_CBC, iv)
-	try:
-	    # UnPad Based on AES Block Size
-	    plaintext = unpad(decipher.decrypt(b64decode(out)), AES.block_size).decode('utf-8')
-	except:
-	    print("padding is incorrect")
-	else:
-	    print(f"PT: {plaintext}")
-	    print(f"Pwd: {password}")
+for k in keys:
+    k = k.rstrip('\n')
+    key = bytearray.fromhex(k)
+    cipher = AES.new(key=key, mode=AES.MODE_CBC, iv=iv)
+    guess = cipher.encrypt(data)
+    if guess == ciphertext:
+        print("the key is : ", k)
+        break
