@@ -22,6 +22,9 @@ for s in range(3601):
 
 	password = unhexlify(password)
 
+	# padding
+	msg = pad(msg, AES.block_size)
+
 	# Encipher Text
 	cipher = AES.new(password, AES.MODE_CBC, iv)
 	cipher_text = cipher.encrypt(msg)
