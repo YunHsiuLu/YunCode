@@ -16,13 +16,14 @@ msg = b"\x25\x50\x44\x46\x2d\x31\x2e\x35\x0a\x25\xd0\xd4\xc5\xd8\x0a\x34"
 iv = unhexlify(iv)
 password = ""
 for s in range(3601):
+	print(f"round: {s}")
 	random.seed(date_seed)
 	for i in range(16):
 		password += hex(random.randint(0,255))
 
 	password = unhexlify(password)
 
-	# padding
+	# Pad to AES Block Size
 	msg = pad(msg, AES.block_size)
 
 	# Encipher Text
