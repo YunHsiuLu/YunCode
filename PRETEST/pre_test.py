@@ -9,7 +9,7 @@ import random
 from key_generate import key_generate
 from Crypto.Util import number
 
-KEY = key_generate(32)
+KEY = key_generate(512)
 print(f'N = {KEY.N}, N length = {number.size(KEY.N)}')
 print(f'Phi = {KEY.phi}')
 print(f'public key = {KEY.pub}, pub key length = {number.size(KEY.pub)}')

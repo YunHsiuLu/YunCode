@@ -31,8 +31,7 @@ class key_generate():
         while 1:
             p = number.getPrime(p_len) # return upto p_len bits prime
             q = number.getPrime(q_len) # return upto q_len bits prime
-            if number.isPrime(p) and number.isPrime(q):
-                print('p and q are prime')
+
             N = p*q
             self.N = N # N is public key
             phi = (p-1)*(q-1)
