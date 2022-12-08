@@ -1,9 +1,9 @@
 # 前情提要
 這邊的練習純粹是為了解題<br>
 並沒有考慮到效率或是可讀性（當然我有儘量地顧及可讀性）或是程式結構<br>
-以下會解說三個題目的解題方向：
-Compile code: `make`
-Run the certain exercise: `./XXXXX.out`
+以下會解說三個題目的解題方向：<br>
+Compile code: `make`<br>
+Run the certain exercise: `./XXXXX.out`<br>
 
 ## Ancient Cipher
 *參考檔案*`ancient_cipher.c`<br>
