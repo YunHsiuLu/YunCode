@@ -68,11 +68,11 @@ int main() {
 				All_success = All_success && success;
 			}
 			if (All_success) {
-				printf("YES!\n");
+				printf("YES\n");
 				break;
 			}
 		}
-		
+		if (!All_success) printf("NO\n");	
 		free(c_arr);
 		free(c_chh);
 		free(p_arr);
