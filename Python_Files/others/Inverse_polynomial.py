@@ -1,9 +1,10 @@
-def Sub(l1, l2, m=1):
+def Add(l1, l2, m=1):
 	ind = min(len(l1), len(l2))
-	l = [-i*m for i in l2]
+	lt1 = l1 if len(l1) >= len(l2) else l2
+	lt2 = l1 if len(l1) < len(l2) else l2
+	l = [i for i in lt1]
 	for i in range(-1, -ind-1, -1):
-		l[i] = l1[i] + l[i]
-		#l[i] = int(l1[i]) - int(l2[i])*m
+		l[i] = l[i] + lt2[i]*m
 	return l
 
 def Poly_to_par_and_exp(poly):
@@ -66,7 +67,7 @@ def Divide(par_n,par_d):
 		t = par_n[i:i+len(par_d)]
 		q = t[0]/par_d[0]
 		par_q[i] = q
-		par_n[i:i+len(par_d)] = Sub(t, par_d, q)
+		par_n[i:i+len(par_d)] = Add(t, par_d, -q)
 	par_r = par_n[-len(par_r):]
 	#print(par_n, par_d, par_q, par_r)
 	return par_q, par_r
@@ -161,7 +162,7 @@ def Inverse_polynomial(N=5, f=[1,0,1], p=3):
 
 	for i in range(len(q)-1):
 		m = Multiply(t[i+1], q[i])
-		s = Sub(t[i], m)
+		s = Add(t[i], m)
 		for j in range(len(s)):
 			s[j] = s[j] % p
 		t.append(s)
@@ -171,3 +172,8 @@ def Inverse_polynomial(N=5, f=[1,0,1], p=3):
 		result[i] = -result[i] % p
 
 	print('\tthe inverse of f(x) par is:', result)
+
+
+
+
+
