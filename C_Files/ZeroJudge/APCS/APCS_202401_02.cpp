@@ -1,8 +1,9 @@
 #include <iostream>
 using namespace std;
 int main() {
-	int m = 0, n = 0, k = 00;
+	int m = 0, n = 0, k = 0;
 	cin >> m >> n >> k;
+	// char A[m][n];
 	char** A = new char* [m];
 	int step[k];
 	char ans[k];
