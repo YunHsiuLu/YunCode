@@ -1,45 +1,42 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
-void MERGE(int *a) {
-	int n = sizeof(a)/2;
-	cout << n << endl;
-	int *la, *ra;
+void MERGE(vector<int> &a) {
+	int n = a.size();
+    vector<int> la, ra;
 	if (n != 1) {
 		int ln = n/2;
 		int rn = (n%2==0) ? n/2 : n/2+1;
-		cout << ln << " " << rn << endl;
-		la = new int [ln];
-		for (int i = 0; i < ln; i++) la[i] = a[i];
-		ra = new int [rn];
-		for (int i = 0; i < rn; i++) ra[i] = a[i+ln];
+		for (int i = 0; i < ln; i++) la.push_back(a[i]);
+		for (int i = 0; i < rn; i++) ra.push_back(a[i+ln]);
 		MERGE(la);
 		MERGE(ra);
 	}
-	int tmp[n];
+    else return;
+
 	int i = 0, j = 0;
-	while (true) {
-		cout << i << " " << j << endl;
-		if (i == sizeof(la)/2) {
-			for (int k = j; k < sizeof(ra)/2; k++) tmp[k+i] = ra[k];
-			break;
-		}
-		else if (j == sizeof(ra)/2) {
-			for (int k = i; k < sizeof(la)/2; k++) tmp[k+j] = la[k];
-			break;
-		}
-		else {}
+    a.clear();
+    a.resize(la.size()+ra.size());
+    while (true) {
+		if (i == la.size()) {
+            for (int k = j; k < ra.size(); k++) a[i+k] = ra[k];
+            break;
+        }
+        else if (j == ra.size()) {
+            for (int k = i; k < la.size(); k++) a[j+k] = la[k];
+            break;
+        }
 
 		if(ra[j] < la[i]) {
-			tmp[i+j] = ra[j];
+			a[i+j] = ra[j];
 			j++;
 		}
 		else {
-			tmp[i+j] = la[i];
+			a[i+j] = la[i];
 			i++;
 		}
 	}
-	a = tmp;
 }
 
 int main() {
@@ -47,10 +44,14 @@ int main() {
 	cin.tie(0);
 	int n = 0;
 	cin >> n;
-	int *a = new int [n];
-	for (int i = 0; i < n; i++) cin >> a[i];
-	MERGE(a);
-	for (int i = 0; i < n; i++) cout << a[i] << " ";
+	vector<int> vec;
+    for (int i = 0; i < n; i++) {
+        int tmp = 0;
+        cin >> tmp;
+        vec.push_back(tmp);
+    }
+	MERGE(vec);
+    for (int i = 0; i < n; i++) cout << vec[i] << " ";
 	cout << endl;
 
 	return 0;
