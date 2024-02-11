@@ -22,7 +22,6 @@ int main() {
 		cin >> first >> second;
 		if (!parent[first]) parent[first] = first;
 		if (!parent[second]) parent[second] = second;
-		cout << parent[first] << endl;
 		if (rk[find_parent(first)] >= rk[find_parent(second)]) {
 			parent[second] = first;
 			rk[first] += rk[second];
@@ -39,6 +38,12 @@ int main() {
 		cin >> first >> second;
 		if (find_parent(first) == find_parent(second)) cout << ":)" << endl;
 		else cout << ":(" << endl;
+		c++;
+	}
+	return 0;
+}
+
+<< endl;
 		c++;
 	}
 	return 0;
