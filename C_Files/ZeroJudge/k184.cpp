@@ -30,3 +30,30 @@ int main()
     sort(x, x + N);
     for(int i = 0; i < N; ++i)  cout << get<2>(x[i]) << "\n";
 }
+NODE[j].dis = tmp;
+            }
+        }
+    }
+    for (int i = 1; i <= n-1; i++) {
+        for (int j = i+1; j <= n; j++) {
+            if (NODE[i].dis > NODE[j].dis) {
+                node tmp = NODE[j];
+                NODE[j] = NODE[i];
+                NODE[i] = tmp;
+            }
+        }
+    }
+    for (int i = 1; i <= n-1; i++) {
+        if (NODE[i].dis == NODE[i+1].dis) {
+            if ((NODE[i].price > NODE[i+1].price) || ((NODE[i].price == NODE[i+1].price) && (NODE[i].number > NODE[i+1].number))) {
+                node tmp = NODE[i+1];
+                NODE[i+1] = NODE[i];
+                NODE[i] = tmp;
+            }
+        }
+        cout << NODE[i].number << endl;
+    }
+    cout << NODE[n].number << endl;
+	return 0;
+}
+
