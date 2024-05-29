@@ -39,15 +39,16 @@ int main() {
 				//cout << MAP[i][j] << endl;
 			}
 		}
-		
+		for (int i = 0; i < R; i++)
+			for (int j = 0; j < C; j++)
+				pre_MAP[i][j] = MAP[i][j];
+
 		for (int i = 0; i < R; i++) {
 			for (int j = 0; j < C; j++) {
-				cout << MAP[i][j] << " ";
 				if (MAP[i][j] == -1) continue;
 				if (MAP[i][j] > MAX) MAX = MAP[i][j];
 				if (MAP[i][j] < MIN) MIN = MAP[i][j];
 			}
-			cout << endl;
 		}
 	}
 	printf("%d\n%d\n", MIN, MAX);
