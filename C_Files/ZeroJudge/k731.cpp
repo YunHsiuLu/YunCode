@@ -16,13 +16,13 @@ int main() {
 			if (pre_y < cur_y) { // 向上移動
 				if (face == 1) turn_left++;
 				else if (face == 3) turn_right++;
-				else turn_back++;
+				else if (face == 4) turn_back++;
 				face = 2;
 			}
 			else { // 向下移動
 				if (face == 1) turn_right++;
 				else if (face == 3) turn_left++;
-				else turn_back++;
+				else if (face == 2) turn_back++;
 				face = 4;
 			}
 		}
@@ -30,13 +30,13 @@ int main() {
 			if (pre_x < cur_x) { // 向右移動
 				if (face == 2) turn_right++;
 				else if (face == 4) turn_left++;
-				else turn_back++;
+				else if (face == 3) turn_back++;
 				face = 1;
 			}
 			else { // 向左移動
 				if (face == 2) turn_left++;
 				else if (face == 4) turn_right++;
-				else turn_back++;
+				else if (face == 1) turn_back++;
 				face = 3;
 			}
 		}
@@ -48,10 +48,7 @@ int main() {
 	return 0;
 }
 
-if (face == 2) face = 3;
-					else face = 1;
-				}
-				else if (((face == 2) && (pre_x < cur_x)) || ((face == 4) && (pre_x > cur_x))) {
+if (((face == 2) && (pre_x < cur_x)) || ((face == 4) && (pre_x > cur_x))) {
 					turn_right++;
 					if (face == 2) face = 1;
 					else face = 3;
