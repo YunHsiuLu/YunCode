@@ -48,22 +48,3 @@ int main() {
 	return 0;
 }
 
-if (((face == 2) && (pre_x < cur_x)) || ((face == 4) && (pre_x > cur_x))) {
-					turn_right++;
-					if (face == 2) face = 1;
-					else face = 3;
-				}
-				else {
-					turn_back++;
-					if (face == 1) face = 3;
-					else face = 1;
-				}
-				pre_x = cur_x;
-			}
-		}
-		//printf("face=%d; current (x,y)=(%d,%d)\n", face, pre_x, pre_y);
-	}
-	printf("%d %d %d\n", turn_left, turn_right, turn_back);
-	return 0;
-}
-
