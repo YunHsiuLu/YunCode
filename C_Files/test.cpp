@@ -1,17 +1,17 @@
 #include <iostream>
 using namespace std;
+
+void test(int *x) {
+    printf("\tbefore changing x: x=%d\n", *x);
+    *x = 5;
+    printf("\tafter changing x:  x=%d\n", *x);
+}
+
 int main() {
-    int n = 0;
-    cin >> n;
-    float h, w, bmi;
-    while (n--) {
-        cin >> h >> w;
-        bmi = w/(h*h);
-        if (bmi < 18.5) cout << "過輕" << endl;
-        else if ((bmi >= 18.5) && (bmi < 24)) cout << "正常" << endl;
-        else if ((bmi >= 24) && (bmi < 35)) cout << "異常" << endl;
-        else cout << "要小心了!" << endl;
-    }
-	return 0;
+    int a = 0;
+    printf("before calling test(): a=%d\n", a);
+    test(&a);
+    printf("after calling test():  a=%d\n", a);
+    return 0;
 }
 
