@@ -1,14 +1,32 @@
-import numpy as np
-import matplotlib.pyplot as plt
-import time
+class Node():
+    def __init__(self, data=None):
+        self.data = data
+        self.next = None
+        
 
-x = np.linspace(0, 10, 100)
-y1 = np.sin(x)
-y2 = np.cos(x)
+class LinkedList():
+    def __init__(self):
+        self.head = None
 
-fig1 = plt.figure()
+    def ShowNodes(self):
+        t = self.head
+        while not (t == None or t.data == None):
+            print("%d ->" % t.data, end=" ")
+            t = t.next
+        print("None")
+    
+    def AddNodes(self, data=None):
+        if self.head == None:
+            self.head = Node(data)
+        else:
+            t = self.head
+            while not (t.next == None):
+                t = t.next
+            t.next = Node(data)
 
-plt.plot(x, y1, "r-")
-time.sleep(0.5)
-plt.plot(x, y2, "b.")
-plt.show()
+l = LinkedList()
+l.ShowNodes()
+l.AddNodes(1)
+l.AddNodes(2)
+l.AddNodes(3)
+l.ShowNodes()
