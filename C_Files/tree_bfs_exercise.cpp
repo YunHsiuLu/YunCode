@@ -15,22 +15,20 @@ int main() {
     cin >> s;
     int n = s.size()+1;
     Node Tree[n]; // Tree[0] for null; Tree[1] ~ Tree[s.size()] for nodes
-    int layer = 1;
     int i = 1;
     // build the tree
-    while (i < s.size()+1) {
-        for (int j = i; j <= (int)pow(2, layer)-1 && j < n; j++) {
-            if (s[j-1] == '-') continue;
-            Tree[j].c = s[j-1];
-            if (layer >= 2) {
-                Tree[j].Parent = j/2;
-                if (j%2 == 0) Tree[j/2].L = j;
-                else Tree[j/2].R = j;
-            }
-            //printf("node: %c P:%d L:%d R:%d\n", Tree[j].c, Tree[j].Parent, Tree[j].L, Tree[j].R);
+    while (i < n) {
+        if (s[i-1] == '-') {
+            i++;
+            continue;
         }
-        i = (int)pow(2, layer);
-        layer++;
+        Tree[i].c = s[i-1];
+        if (i > 1) {
+            Tree[i].Parent = i/2;
+            if (i%2 == 0) Tree[i/2].L = i;
+            else Tree[i/2].R = i;
+        }
+        i++;
     }
     // print the tree
     /*
